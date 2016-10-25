@@ -29,18 +29,10 @@ module Lita
         medium2 = html.css('.MdCMN03Article').map{|a| a.children.children.children.children.children.children}.map{|a| a.map(&:content)}.map{|a| a[3]} #掲載元2
         medium3 = html.css('.MdCMN03Article').map{|a| a.children.children.children.children.children.children}.map{|a| a.map(&:content)}.map{|a| a[5]} #掲載元3
 
-        reply_title = ''
-        titles.length.times do |n|
-          reply_title = "#{reply_title}#{titles[n]}\n"
-        end
-
-        reply_medium = ''
-        titles.length.times do |n|
-          reply_medium = "#{reply_medium}#{medium1[n]}\t#{medium2[n]}\t#{medium3[n]}\n"
-        end
-
-        response.reply("タイトル全文\n```\n#{reply_title}\n```")
-        response.reply("参照元メディア\n```\n#{reply_medium}\n```")
+        response.reply("タイトル全文\n```\n#{titles.join("\n")}\n```")
+        response.reply("参照元メディア1\n```\n#{medium1.join("\n")}\n```")
+        response.reply("参照元メディア2\n```\n#{medium2.join("\n")}\n```")
+        response.reply("参照元メディア3\n```\n#{medium3.join("\n")}\n```")
       rescue OpenURI::HTTPError => e
         response.reply("情報がなかったよ。URLが正しいか確認してね。")
         response.reply("今回使用したURL:#{url}")
